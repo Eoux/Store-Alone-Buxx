@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Store | Alone Buxx</title>
+
+  <!-- Fonte Anton -->
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#000;
+      --neon:#00ff66;
+      --neon-2:#00e6ff;
+      --muted:#0b0b0b;
+      --glass: rgba(255,255,255,0.03);
+      --card-padding:18px;
+      --accent-shadow: 0 6px 30px rgba(0,255,102,0.08);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--neon);font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;position:relative;overflow-x:hidden;}
+
+    /* HEADER */
+    header{
+      position:fixed;left:0;right:0;top:0;height:86px;display:flex;align-items:center;justify-content:center;gap:22px;padding:14px 20px;z-index:40;backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.45));
+      box-shadow: 0 2px 18px rgba(0,0,0,0.6);
+      border-bottom: 1px solid rgba(0,255,102,0.06);
+    }
+    header .brand{display:flex;align-items:center;gap:14px}
+    header img{width:56px;height:auto;display:block;object-fit:contain;filter: drop-shadow(0 6px 10px rgba(0,255,102,0.07));transition:transform .25s ease, filter .25s ease;border-radius:8px}
+    header img:hover{transform:translateY(-4px) scale(1.02);filter: drop-shadow(0 8px 22px rgba(0,255,102,0.35));}
+    header .title{font-family:'Anton', sans-serif;font-size:32px;letter-spacing:1px;color:var(--neon);text-shadow: 0 0 14px rgba(0,255,102,0.12);}
+
+    /* MAIN LAYOUT */
+    main{padding-top:130px;min-height:100vh;padding-left:30px;padding-right:30px}
+    .container{max-width:1100px;margin:0 auto}
+
+    /* HERO */
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:center;margin-bottom:36px}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:16px;padding:26px;box-shadow:var(--accent-shadow);border:1px solid rgba(0,255,102,0.06)}
+    .hero h1{font-family:'Anton';font-size:46px;margin:0 0 6px;color:var(--neon);}
+    .hero p{color:rgba(0,255,102,0.85);margin:0 0 18px}
+
+    /* CTA */
+    .cta{display:flex;gap:12px;align-items:center}
+    .btn{background:transparent;border:2px solid rgba(0,255,102,0.14);padding:12px 18px;border-radius:10px;font-weight:700;cursor:pointer;backdrop-filter: blur(4px);transition:all .22s ease}
+    .btn.primary{background:linear-gradient(90deg, rgba(0,255,102,0.06), rgba(0,230,255,0.03));box-shadow:0 8px 30px rgba(0,255,102,0.06);border-color:rgba(0,255,102,0.28)}
+    .btn.primary:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(0,255,102,0.18);}
+
+    /* PRICE CARDS */
+    .prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-top:12px}
+    .price-card{background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(255,255,255,0.02));padding:var(--card-padding);border-radius:12px;border:1px solid rgba(0,255,102,0.05);transition:transform .22s cubic-bezier(.2,.9,.3,1), box-shadow .22s;cursor:pointer}
+    .price-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 20px 60px rgba(0,255,102,0.08);border-color:rgba(0,230,255,0.28)}
+    .price-card h3{margin:0;font-size:18px;color:var(--neon-2)}
+    .price-card .amount{font-size:22px;font-weight:800;margin-top:8px}
+    .price-card .valor{color:rgba(255,255,255,0.88);font-weight:700}
+
+    /* HOW IT WORKS */
+    .steps{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+    .step{display:flex;gap:14px;align-items:flex-start;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:10px;border:1px solid rgba(0,255,102,0.04)}
+    .step .num{width:42px;height:42px;border-radius:10px;background:linear-gradient(180deg,var(--neon),var(--neon-2));display:grid;place-items:center;color:#000;font-weight:800}
+    .step p{margin:0;color:rgba(0,255,102,0.95)}
+
+    /* BENEFITS */
+    .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:26px 0}
+    .benefit{padding:12px;border-radius:10px;border:1px solid rgba(0,255,102,0.04);background:var(--glass);text-align:center}
+    .benefit h4{margin:8px 0 4px}
+    .small{font-size:13px;color:rgba(0,255,102,0.8)}
+
+    /* TESTIMONIALS */
+    .testimonials{margin-top:6px;display:flex;gap:12px;overflow:auto;padding-bottom:8px}
+    .test-card{min-width:220px;padding:12px;border-radius:10px;border:1px solid rgba(0,255,102,0.04);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));}
+
+    /* WARNINGS / FAQ */
+    .notice{padding:12px;border-radius:10px;background:linear-gradient(90deg, rgba(255,0,0,0.03), rgba(255,255,255,0.01));border:1px solid rgba(255,0,0,0.06);color:#ffb3b3}
+
+    /* FOOTER */
+    footer{margin-top:36px;padding:20px 0;text-align:center;color:rgba(0,255,102,0.7);font-size:14px}
+
+    /* HOVER-GLOW */
+    .hover-glow{position:relative;overflow:hidden}
+    .hover-glow::after{content:'';position:absolute;left:50%;top:50%;width:0;height:0;transform:translate(-50%,-50%);background:radial-gradient(circle, rgba(0,255,102,0.18), transparent 40%);transition:width .25s ease,height .25s ease,opacity .25s}
+    .hover-glow:hover::after{width:220px;height:220px;opacity:1}
+
+    /* neon balls */
+    .neon-ball{
+      position:fixed;
+      top:-20px;
+      border-radius:50%;
+      background:#00ff66;
+      box-shadow:0 0 15px #00ff66,0 0 30px #00ff66;
+      pointer-events:none;
+      opacity:0.9;
+      z-index:0;
+      filter:blur(0.5px);
+      animation:fallNeon linear forwards;
+    }
+
+    @keyframes fallNeon{
+      0%{transform:translateY(0) scale(1);opacity:1;}
+      100%{transform:translateY(100vh) scale(0.8);opacity:0;}
+    }
+    /* Remove setas do input number (Chrome, Safari, Edge) */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    /* MEDIA QUERIES: Responsividade para celulares e tablets */
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .benefits {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 10px;
+    height: auto;
+    padding: 10px;
+    text-align: center;
+  }
+
+  header .brand {
+    flex-direction: column;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+
+  .cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .prices {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .benefits {
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 110px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .price-card h3 {
+    font-size: 16px;
+  }
+
+  .price-card .amount {
+    font-size: 18px;
+  }
+
+  .step {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .step .num {
+    margin-bottom: 6px;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <img src="urahara1.png" alt="Ícone esquerda">
+      <div class="title">Alone Buxx</div>
+      <img src="urahara1.png"alt="Ícone direita">
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- HERO + PREÇOS -->
+      <section class="hero">
+        <div class="hero-card">
+          <h1>Alone Buxx</h1>
+          <p>Compra de Robux fácil e segura — atendimento via Discord. Clique no botão para entrar no servidor e finalizar a compra.</p>
+
+          <div class="cta">
+            <a class="btn primary hover-glow" href="https://discord.gg/ZUaZz8RwJp" target="_blank" rel="noopener noreferrer">Comprar no Discord</a>
+            <a class="btn" id="openChat" style="color:var(--neon);" href="https://discord.gg/ZUaZz8RwJp" target="_blank" rel="noopener noreferrer">Abrir suporte (DC)</a>
+
+          </div>
+          <section style="margin-top: 30px">
+      <h2 style="font-family:'Anton';font-size:24px;color:var(--neon);margin-bottom:12px">Calculadora de Robux</h2>
+
+      <div class="hero-card hover-glow" style="max-width: 400px;">
+        <label for="robuxInput" style="display:block;margin-bottom:6px">Digite a quantidade de Robux:</label>
+        <input type="number" id="robuxInput" placeholder="Insira a quantidade de robux que deseja:" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(0,255,102,0.2);background:#0b0b0b;color:#00ff66;">
+
+        <div id="resultValue" style="margin-top:14px;font-size:16px;color:rgba(0,255,102,0.85)"></div>
+      </div>
+    </section>
+
+          <div class="small" style="margin-top:140px">Pagamento: Pix — entrega em minutos após confirmação.</div>
+        </div>
+
+        <aside class="hero-card">
+          <h3 style="color:var(--neon-2)">Pacotes | Preços</h3>
+
+          <div class="prices" id="prices">
+            <div class="price-card hover-glow"><h3>100 Robux</h3><div class="amount"><span class="valor">2,70R$</span></div></div>
+            <div class="price-card hover-glow"><h3>500 Robux</h3><div class="amount"><span class="valor">13,50R$</span></div></div>
+            <div class="price-card hover-glow"><h3>1000 Robux</h3><div class="amount"><span class="valor">27,00R$</span></div></div>
+            <div class="price-card hover-glow"><h3>2.000 Robux</h3><div class="amount"><span class="valor">54,00R$</span></div></div>
+          </div>
+
+          <div style="margin-top:12px;font-size:13px;color:rgba(0,255,102,0.8)">Esses valores são pelo grupo! os valores vão variar de acordo com o metodo usado.</div>
+        </aside>
+      </section>
+
+
+
+
+      <!-- COMO FUNCIONA -->
+      <section>
+        <h2 style="font-family:'Anton';font-size:26px;margin:6px 0 12px;color:var(--neon)">Como funciona</h2>
+        <div class="steps">
+          <div class="step hover-glow"><div class="num">1</div><p>Entre no nosso servidor do Discord e abra um ticket com a equipe (ou clique em "Comprar no Discord").</p></div>
+          <div class="step hover-glow"><div class="num">2</div><p>Escolha o pacote desejado e envie o comprovante do pagamento (Pix).</p></div>
+          <div class="step hover-glow"><div class="num">3</div><p>Receba seus Robux na conta informada em poucos minutos. Suporte até a entrega.</p></div>
+        </div>
+      </section>
+
+      <!-- BENEFÍCIOS -->
+      <section style="margin-top:22px">
+        <h2 style="font-family:'Anton';font-size:26px;margin:6px 0 12px;color:var(--neon)">Por que comprar aqui?</h2>
+        <div class="benefits">
+          <div class="benefit hover-glow"><div style="font-size:28px">⚡</div><h4>Entrega Rápida</h4><div class="small">Normalmente instantâneo após confirmação.</div></div>
+          <div class="benefit hover-glow"><div style="font-size:28px">🔒</div><h4>Segurança</h4><div class="small">Não pedimos senha — apenas dados para depositar Robux.</div></div>
+          <div class="benefit hover-glow"><div style="font-size:28px">🎁</div><h4>Promoções</h4><div class="small">Sorteios e descontos exclusivos no Discord.</div></div>
+        </div>
+      </section>
+
+      <!-- AVISOS -->
+      <section style="margin-top:20px">
+        <h2 style="font-family:'Anton';font-size:20px;margin:6px 0 12px;color:var(--neon)">Avisos</h2>
+        <div class="notice">
+          <ul style="margin:0;padding-left:18px">
+            <li>Não compartilhamos senhas da conta.</li>
+            <li>O único canal oficial de compra é o Discord (link no botão). Cuidado com golpistas.</li>
+            <li>Respeitamos os Termos do Roblox — você é responsável por garantir que a sua conta esteja apta a receber Robux.</li>
+          </ul>
+        </div>
+      </section>
+
+      <footer>
+        © <span id="year">2025</span> Alone Buxx — <a href="https://discord.gg/ZUaZz8RwJp" target="_blank" style="color:var(--neon);text-decoration:underline">Entrar no Discord</a>
+      </footer>
+
+    </div>
+  </main>
+
+  <!-- cursor ripple element -->
+  <div id="ripple" class="cursor-ripple" style="display:none;width:120px;height:120px;background:radial-gradient(circle, rgba(0,255,102,0.12), transparent 35%);"></div>
+
+  <script>
+    // Atualiza ano
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Botão de suporte abre DM (fallback para abrir Discord)
+document.getElementById('openChat').addEventListener('click', ()=>{
+  window.open('https://discord.gg/ZUaZz8RwJp', '_blank');
+});
+
+// Ripple do cursor
+(function(){
+  const ripple = document.getElementById('ripple');
+
+  function onEnter(){ ripple.style.display='block'; ripple.style.opacity='1'; }
+  function onLeave(){ ripple.style.opacity='0'; setTimeout(()=>ripple.style.display='none',250); }
+
+  document.addEventListener('mousemove', e=>{
+    ripple.style.left = e.clientX + 'px';
+    ripple.style.top = e.clientY + 'px';
+  });
+
+  document.querySelectorAll('.hover-glow').forEach(el=>{
+    el.addEventListener('mouseenter', onEnter);
+    el.addEventListener('mouseleave', onLeave);
+  });
+
+  document.querySelectorAll('.price-card').forEach(el=>{
+    el.addEventListener('mouseenter', ()=>{ el.style.boxShadow = '0 28px 90px rgba(0,255,102,0.12)'; });
+    el.addEventListener('mouseleave', ()=>{ el.style.boxShadow = ''; });
+  });
+})();
+
+// CRIAR BOLAS NEON CAINDO
+function createNeonBall(){
+  const ball = document.createElement('div');
+  ball.classList.add('neon-ball');
+  const size = Math.random() * 10 + 5;
+  ball.style.width = size + 'px';
+  ball.style.height = size + 'px';
+  ball.style.left = Math.random() * window.innerWidth + 'px';
+  const duration = Math.random() * 4 + 3; // 3s a 7s
+  ball.style.animationDuration = duration + 's';
+  document.body.appendChild(ball);
+
+  setTimeout(()=> ball.remove(), duration*1000);
+}
+
+// Criar várias bolas continuamente
+setInterval(createNeonBall, 150); // a cada 150ms
+
+document.getElementById('robuxInput').addEventListener('mouseenter', () => {
+  document.getElementById('robuxInput').focus();
+});
+
+
+
+// CALCULADORA DE ROBUX
+document.addEventListener('DOMContentLoaded', () => {
+  const robuxInput = document.getElementById('robuxInput');
+  const resultValue = document.getElementById('resultValue');
+
+  robuxInput.addEventListener('input', () => {
+    const robux = parseFloat(robuxInput.value);
+
+    if (!isNaN(robux) && robux > 0) {
+      // Preços por Robux
+      const precoGrupo = 0.027;
+      const precoNormal = precoGrupo * 1.30; // 10% mais caro
+
+      // Cálculo dos valores
+      const valorGrupo = (robux * precoGrupo).toFixed(2).replace('.', ',');
+      const valorNormal = (robux * precoNormal).toFixed(2).replace('.', ',');
+
+      // Resultado
+      resultValue.innerHTML = `
+        💸 Valor pelo grupo: <strong>${valorGrupo} R$</strong><br>
+        💸 Valor por gamepass: <strong>${valorNormal} R$</strong>
+      `;
+    } else {
+      resultValue.innerHTML = '';
+    }
+  });
+});
+
+</script>
+</body>
+</html>
